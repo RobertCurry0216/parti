@@ -18,8 +18,8 @@ import '../toyboxes/toyboxes.lua'
 ```
 
 ### Manual install
-To install Parti, simply copy the pp-lib.lua file into your game directory and import it into your game.
+To install Parti, simply copy the parti.lua file into your game directory and import it into your game.
 ```lua
-import "pp-lib"
+import "parti"
 ```
 
