@@ -13,6 +13,7 @@ function PartiSystem:init(w, h)
   self:setZIndex(32767)
 
   self._particles = {}
+  self.count = 0
 end
 
 function PartiSystem:update()
@@ -30,22 +31,25 @@ function PartiSystem:update()
   gfx.pushContext(img)
     for i=l, 1, -1 do
       local particle = particles[i]
-      particle:draw()
-      if particle.isDone then
+      local isDone = particle:draw()
+      if isDone then
         table.remove(particles, i)
+        self.count = 0 -= 1
       end
     end
   gfx.popContext()
 end
 
+function PartiSystem:clear()
+  self._particles = {}
+  self.count = 0
+end
+
 function PartiSystem:spawnParticle(particle)
   table.insert(self._particles, particle)
+  self.count += 1
 end
 
 class("PartiParticle").extends()
-
-function PartiParticle:init()
-  self.isDone = false
-end
 
 function PartiParticle:draw() end
