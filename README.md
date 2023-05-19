@@ -1,7 +1,7 @@
 # Parti 🥳
 a lightweight particle system for the playdate
 
-![demo gif](todo)
+![demo gif](https://github.com/RobertCurry0216/parti/blob/main/demo.gif)
 
 ## Install
 ### Toybox
