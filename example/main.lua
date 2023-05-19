@@ -5,6 +5,12 @@ local gfx <const> = pd.graphics
 
 deltaTime = 1 / playdate.display.getRefreshRate()
 
+-- testing
+local img = gfx.image.new(10, 10)
+gfx.pushContext(img)
+  gfx.drawCircleAtPoint(5, 5, 4)
+gfx.popContext()
+
 class("PartiBall").extends(PartiParticle)
 
 function PartiBall:init(x, y)
@@ -20,7 +26,7 @@ function PartiBall:draw()
   if self.x > 400 or self.x < 0 then return true end
   if self.y > 240 or self.y < 0 then return true end
 
-  gfx.drawCircleAtPoint(self.x, self.y, 4)
+  img:draw(self.x, self.y)
 end
 
 local function init()
@@ -32,6 +38,7 @@ init()
 
 function playdate.update()
   if pd.buttonIsPressed(pd.kButtonA) then
+    parti:spawnParticle(PartiBall(200, 120))
     parti:spawnParticle(PartiBall(200, 120))
   end
 

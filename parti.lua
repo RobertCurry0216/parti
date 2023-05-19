@@ -34,7 +34,7 @@ function PartiSystem:update()
       local isDone = particle:draw()
       if isDone then
         table.remove(particles, i)
-        self.count = 0 -= 1
+        self.count -= 1
       end
     end
   gfx.popContext()
