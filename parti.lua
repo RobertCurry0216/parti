@@ -27,8 +27,10 @@ function PartiSystem:update()
     return
   end
   self._last_count = l
-
   self:markDirty()
+
+  local time = pd.getCurrentTimeMilliseconds()
+
   local img = self._img
   img:clear(gfx.kColorClear)
   local offx, offy = gfx.getDrawOffset()
@@ -36,7 +38,7 @@ function PartiSystem:update()
   gfx.pushContext(img)
     for i=l, 1, -1 do
       local particle = particles[i]
-      local isDone = particle:draw(offx, offy)
+      local isDone = particle:draw(time - particle.__start, offx, offy)
       if isDone then
         table.remove(particles, i)
         self.count -= 1
@@ -51,10 +53,11 @@ function PartiSystem:clear()
 end
 
 function PartiSystem:spawnParticle(particle)
+  particle.__start = pd.getCurrentTimeMilliseconds()
   table.insert(self._particles, particle)
   self.count += 1
 end
 
 class("PartiParticle").extends()
 
-function PartiParticle:draw(offx, offy) end
+function PartiParticle:draw(age, offx, offy) end
