@@ -115,6 +115,7 @@ end
 
 function PartiImageTable:draw(age, offx, offy)
   local idx = self.start + self.step * (age // self.frame_rate)
+  local step, final = self.step, self.final
   if step >= 1 and idx >= final then return true end
   if step <= 1 and idx <= final then return true end
 
