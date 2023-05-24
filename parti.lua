@@ -7,7 +7,7 @@ local gfx <const> = playdate.graphics
 
 class("PartiSystem").extends(gfx.sprite)
 
-function PartiSystem:init(w, h)
+function PartiSystem:init(cap, w, h)
   PartiSystem.super.init(self)
 
   self._img = gfx.image.new(w or 400, h or 240, gfx.kColorClear)
@@ -18,6 +18,7 @@ function PartiSystem:init(w, h)
 
   self._particles = {}
   self.count = 0
+  self.cap = cap or 50
 end
 
 function PartiSystem:update()
@@ -55,6 +56,10 @@ function PartiSystem:clear()
 end
 
 function PartiSystem:spawnParticle(particle)
+  if self.count >= self.cap then
+    print("Parti: particle cap reached", self.count)
+    return
+  end
   particle.__start = pd.getCurrentTimeMilliseconds()
   table.insert(self._particles, particle)
   self.count += 1
@@ -110,7 +115,8 @@ end
 
 function PartiImageTable:draw(age, offx, offy)
   local idx = self.start + self.step * (age // self.frame_rate)
-  if idx == self.final then return true end
+  if step >= 1 and idx >= final then return true end
+  if step <= 1 and idx <= final then return true end
 
   self.dx += self.ax
   self.dy += self.ay
