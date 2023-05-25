@@ -16,7 +16,7 @@ function PartiSystem:init(cap, w, h)
   self:setIgnoresDrawOffset(true)
   self:setZIndex(32767)
 
-  self._particles = {}
+  self._particles = table.create(1000)
   self.count = 0
   self.cap = cap or 50
 end
@@ -51,7 +51,7 @@ function PartiSystem:update()
 end
 
 function PartiSystem:clear()
-  self._particles = {}
+  self._particles = table.create(1000)
   self.count = 0
 end
 
